@@ -10,7 +10,7 @@ class Quizzler extends StatelessWidget {
         backgroundColor: Colors.grey.shade900,
         body: SafeArea(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: QuizPage(),
           ),
         ),
@@ -25,13 +25,31 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> ScoreKeeper =[
+    Icon(
+      Icons.check,
+      color: Colors.green,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+    ),
+    Icon(
+      Icons.close,
+      color: Colors.red,
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(
+        const Expanded(
           flex: 5,
           child: Padding(
             padding: EdgeInsets.all(10.0),
@@ -49,12 +67,12 @@ class _QuizPageState extends State<QuizPage> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
             child: TextButton(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.green,
               ),
-              child: Text(
+              child: const Text(
                 'True',
                 style: TextStyle(
                   color: Colors.white,
@@ -63,18 +81,23 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 // The user picked true.
+                setState(() {
+                  ScoreKeeper.add(
+                      Icon(Icons.check, color: Colors.green,),
+                 );
+                });
               },
             ),
           ),
         ),
-        Expanded(
+        Expanded  (
           child: Padding(
-            padding: EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(15.0),
             child: TextButton(
               style: TextButton.styleFrom(
                 backgroundColor: Colors.red,
               ),
-              child: Text(
+              child: const Text(
                 'False',
                 style: TextStyle(
                   fontSize: 20.0,
@@ -83,40 +106,20 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 // The user picked false.
+                setState(() {
+                  ScoreKeeper.add(
+                    Icon(Icons.close, color: Colors.red,),
+                  );
+                });
               },
             ),
           ),
         ),
-        Row(
-          children: <Widget>[
-            Icon(
-              Icons.check,
-              color: Colors.green,
-            ),
-            SizedBox(width: 10.0),
-            Text(
-              '0',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24.0,
-              ),
-            ),
-            SizedBox(width: 20.0),
-            Icon(
-              Icons.close,
-              color: Colors.red,
-            ),
-            SizedBox(width: 10.0),
-            Text(
-              '0',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 24.0,
-              ),
-            ),
-          ],
+         Row(
+          children: ScoreKeeper,
         ),
       ],
     );
-  } 
+  }
 }
+
